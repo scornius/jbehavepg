@@ -11,6 +11,11 @@ public class FighterSteps {
 
 	private Fighter fighter;
 
+	@Given("a fighter with $hitpoints hitpoints")
+	public void aFighter(final int hitpoints) {
+		fighter = new Fighter(hitpoints, 0);
+	}
+
 	@Given("a fighter with $hitpoints hitpoints and $armor armor")
 	public void aFighter(final int hitpoints, final int armor) {
 		fighter = new Fighter(hitpoints, armor);
