@@ -30,7 +30,9 @@ public abstract class FighterStory extends JUnitStory {
 
 	public FighterStory() {
 		configuredEmbedder().embedderControls().doGenerateViewAfterStories(true).doIgnoreFailureInStories(true)
-				.doIgnoreFailureInView(true).useThreads(2).useStoryTimeoutInSecs(60);
+				.doIgnoreFailureInView(true)
+				.useThreads(2)
+				.useStoryTimeouts("60");
 		// Uncomment to set meta filter, which can also be set via Ant or Maven
 		// configuredEmbedder().useMetaFilters(Arrays.asList("+theme parametrisation"));
 	}
@@ -51,18 +53,23 @@ public abstract class FighterStory extends JUnitStory {
 				new ParameterConverters.ExamplesTableConverter(examplesTableFactory));
 
 		return new MostUsefulConfiguration()
-				.useStoryControls(new StoryControls().doDryRun(false).doSkipScenariosAfterFailure(false))
+				.useStoryControls(new StoryControls()
+						.doDryRun(false)
+						.doSkipScenariosAfterFailure(false))
 				.useStoryLoader(new LoadFromClasspath(embeddableClass))
 				.useStoryParser(new RegexStoryParser(examplesTableFactory))
 				.useStoryPathResolver(new UnderscoredCamelCaseResolver())
 				.useStoryReporterBuilder(
 						new StoryReporterBuilder()
 								.withCodeLocation(CodeLocations.codeLocationFromClass(embeddableClass))
-								.withDefaultFormats().withPathResolver(new FilePrintStreamFactory.ResolveToPackagedName())
-								.withViewResources(viewResources).withFormats(CONSOLE, TXT, HTML, XML)
-								.withFailureTrace(true).withFailureTraceCompression(true).withCrossReference(crossRef))
+								.withDefaultFormats()
+								.withPathResolver(new FilePrintStreamFactory.ResolveToPackagedName())
+								.withViewResources(viewResources)
+								.withFormats(CONSOLE, TXT, HTML, XML)
+								.withFailureTrace(true)
+								.withFailureTraceCompression(true)
+								.withCrossReference(crossRef))
 				.useParameterConverters(parameterConverters)
-				// use '%' instead of '$' to identify parameters
 				.useStepPatternParser(new RegexPrefixCapturingPatternParser("$"));
 	}
 
